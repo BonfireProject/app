@@ -1,0 +1,27 @@
+{
+    "name": "windev/bonfire",
+    "description": "The free, open-source, modern and secure alternative to Discord.",
+    "type": "project",
+    "require": {
+        "sentry/sentry": "^3.4",
+        "sentry/sdk": "^3.1",
+        "auth0/auth0-php": "^8.1",
+        "auth0/login": "^7.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Windev\\Bonfire\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Hayden Walker",
+            "email": "contact@winisreallybored.com"
+        },
+	{
+	    "name": "UserBenchmark",
+	    "email": "censoredforprivacyreasons@example.com"
+	}
+    ]
+}
