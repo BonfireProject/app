@@ -4,9 +4,7 @@ The free, open-source, modern and secure alternative to Discord.
 
 ## Getting started
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Planned prerequisites are: PHP 8.1, composer, a supabase.io account, and a computer. Shared hosting may work? But it's unlikely, and I don't support them.
 
 ## Add your files
 
