@@ -6,17 +6,9 @@ The free, open-source, modern and secure alternative to Discord.
 
 Planned prerequisites are: PHP 8.1, composer, a supabase.io account, and a computer. Shared hosting may work? But it's unlikely, and I don't support them.
 
-## Add your files
+## Notice about the `dotme` branch (this one!)
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://gitlab.com/bonfireproject/app.git
-git branch -M main
-git push -uf origin main
-```
+This branch **will be pushed into production after testing on Bonfireapp.me Staging.** As such, you should make preparations for the app to be on Windev servers. Basically, follow the release policies in the Wiki. (I haven't written them yet. But I will Soon™.)
 
 ## Integrate with your tools
 
