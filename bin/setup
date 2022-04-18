@@ -1,0 +1,43 @@
+#!/bin/bash
+##################################################################################################################
+##         ______                                                                                               ##
+##        /     /\                 _                  __ _                                                      ##
+##       /     /  \               | |                / _(_)                                                     ##
+##      /_____/----\_    (        | |__   ___  _ __ | |_ _ _ __ ___                                             ##
+##     "     "          ).        | '_ \ / _ \| '_ \|  _| | '__/ _ \                                            ##
+##    _ ___          o (:') o     | |_) | (_) | | | | | | | | |  __/                                            ##
+##   (@))_))        o ~/~~\~ o    |_.__/ \___/|_| |_|_| |_|_|  \___|                                            ##
+##                   o  o  o                                                                                    ##
+##                     A cozy alternative to Discord.                                                           ##
+## This code is a part of Bonfire, the modern, secure alternative to Discord.                                   ##
+## Bonfire is explicitly free-and-open-source software. You may distribute it under the terms of the MIT        ##
+## license.                                                                                                     ##
+##################################################################################################################
+# /bin/setup file
+# Generates the thingys, and does preflight for Bonfire.
+# Written by Hayden Walker <contact@winisreallybored.com>
+
+echo -e "\e[36mWelcome to the Bonfire setup script!\e[0m"
+
+
+if [ -f "$FILE" ]; then
+    echo -e "\e[33mCaution - I've detected a .env file.\e[0m"
+    echo -e "\e[33mAs such, this script thinks Bonfire is already installed.\e[0m"
+    read -p "Are you sure you would like to run preflight and generation again? (Y/n) " -n 1 -r
+        if [[ $REPLY =~ ^[Yy]$ ]]
+        then
+            echo -e "\e[33mProceeding.\e[0m"
+        else
+            echo -e "\e[32mOK, canceling. Your Bonfire installation is safe.\e[0m"
+            exit 0
+        fi
+else
+echo -e "\e[32mNo .env file detected, going forward with a clean installation.\e[0m"
+fi
+echo -e "\e[36mChecking dependencies, please wait a moment"
+if grep -q Microsoft /proc/version; then
+  echo -e "\3[31m[Err] error while checking OS: WSL is not supported. If you know a way to add WSL support, open an issue upstream: https://gitlab.com/bonfireproject/app.\e[0m"
+exit 128
+else
+  echo "✓\e32mdetected actual Linux, continuing"
+fi
