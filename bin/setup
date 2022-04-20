@@ -21,23 +21,67 @@ echo -e "\e[36mWelcome to the Bonfire setup script!\e[0m"
 
 
 if [ -f "$FILE" ]; then
-    echo -e "\e[33mCaution - I've detected a .env file.\e[0m"
-    echo -e "\e[33mAs such, this script thinks Bonfire is already installed.\e[0m"
+    echo -e "\e[33m[⚠] Caution - I've detected a .env file.\e[0m"
+    echo -e "\e[33m[⚠] As such, this script thinks Bonfire is already installed.\e[0m"
     read -p "Are you sure you would like to run preflight and generation again? (Y/n) " -n 1 -r
         if [[ $REPLY =~ ^[Yy]$ ]]
         then
-            echo -e "\e[33mProceeding.\e[0m"
+            echo -e "\e[33m[⚠] Proceeding.\e[0m"
         else
-            echo -e "\e[32mOK, canceling. Your Bonfire installation is safe.\e[0m"
+            echo -e "\e[32m[✓] OK, canceling. Your Bonfire installation is safe.\e[0m"
             exit 0
         fi
 else
-echo -e "\e[32mNo .env file detected, going forward with a clean installation.\e[0m"
+echo -e "\e[32m[✓] No .env file detected, going forward with a clean installation.\e[0m"
 fi
-echo -e "\e[36mChecking dependencies, please wait a moment"
+echo -e "\e[36mChecking compatibility, please wait a moment"
 if grep -q Microsoft /proc/version; then
-  echo -e "\3[31m[Err] error while checking OS: WSL is not supported. If you know a way to add WSL support, open an issue upstream: https://gitlab.com/bonfireproject/app.\e[0m"
+  echo -e "\e[31m[✖] error while checking OS: WSL is not supported, as we can't forward ports on it. If you know a way to add WSL support, open an issue upstream: https://gitlab.com/bonfireproject/app.\e[0m"
 exit 128
+else 
+  echo "\e32m [✓] not WSL, checking for other OSes"
+  # I totally didn't yoink this from Stack Overflow. Just kidding I did lmao: 
+  if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        echo "\e32m[✓] OS: GNU/Linux. OS is compatible."
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+        echo "\e32m[✓] OS: macOS. OS compatible. Continuing."
+elif [[ "$OSTYPE" == "cygwin" ]]; then
+        echo -e "\e[33m!! W A R N I N G !!\e[0m"
+        echo -e "\e[33mYou are using Cygwin, a non-supported environment. While this could work, as Msys is just a compatibility layer, it hasn't been tested.\e[0m"
+        echo -e "\e[33mThe maintainers of Bonfire are not responsible for f*cking something up on your system, as we said this is untested." 
+        echo -e "\e[33mIf you want to test this, answer Y and open an issue upstream with the results at https://gitlab.com/bonfireproject/app.\e[0m"
+        read -p "Are you positive you want to continue? (Y/n) " -n 1 -r
+        if [[ $REPLY =~ ^[Yy]$ ]]
+        then
+            echo -e "\e[33m[⚠] Proceeding in an unsupported environment.\e[0m"
+        else
+            echo -e "\e[32m[✓] OK, canceling.\e[0m"
+            exit 0
+        fi
+elif [[ "$OSTYPE" == "msys" ]]; then
+        echo -e "\e[33m!! W A R N I N G !!\e[0m"
+        echo -e "\e[33mYou are using Msys, a non-supported environment. While this could work, as Msys is just a port of GNU tools to Windows, it hasn't been tested.\e[0m"
+        echo -e "\e[33mThe maintainers of Bonfire are not responsible for f*cking something up on your system, as we said this is untested." 
+        echo -e "\e[33mIf you want to test this, answer Y and open an issue upstream with the results at https://gitlab.com/bonfireproject/app.\e[0m"
+        read -p "Are you positive you want to continue? (Y/n) " -n 1 -r
+        if [[ $REPLY =~ ^[Yy]$ ]]
+        then
+            echo -e "\e[33m[⚠] Proceeding in an unsupported environment.\e[0m"
+        else
+            echo -e "\e[32m[✓] OK, canceling.\e[0m"
+            exit 0
+        fi
+elif [[ "$OSTYPE" == "win32" ]]; then
+        echo "Excuse me, what the hell? OS checker detected native Windows. No Msys, no Cygwin, just native f*cking Windows. That's impossible. I'm impressed. Just email me I'll give you a virtual cookie or something. win@cloudw.tech"
+        exit 128
+elif [[ "$OSTYPE" == "freebsd"* ]]; then
+        echo -e "\e[32m[✓] FreeBSD detected.\e[0m"
 else
-  echo "✓\e32mdetected actual Linux, continuing"
+        echo "So, uh, slight problem. Your OS is literally undetectable. Odds are, you caught a super rare error. By super rare I mean...actually unreal. (I wouldn't be surprised, this is Bash, I suck at Bash). Open an issue upstream at https://gitlab.com/bonfireproject/app. I'll hopefully fix it and give you like a virtual cookie."
+        exit 1
 fi
+fi
+start_the_bs {
+echo -e "\e[32m[✓] OS compatible"
+echo -e "\e[36m Checking dependencies" 
+}
